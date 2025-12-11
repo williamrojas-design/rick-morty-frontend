@@ -19,7 +19,7 @@ export const CharacterDetail = () => {
       .then((data) => setCharacter(data))
       .catch((err) => console.error("Error loading character:", err));
 
-    // verificar si es favorito
+
     fetch("http://localhost:3001/api/favorites")
       .then((res) => res.json())
       .then((ids: number[]) => {
@@ -33,30 +33,28 @@ export const CharacterDetail = () => {
 const toggleFavorite = async () => {
     if (!character) return;
 
-    setLoadingFav(true); // 1. Bloqueamos botón
+    setLoadingFav(true); 
 
     try {
       const endpoint = "http://localhost:3001/api/favorites";
       let response;
 
       if (isFavorite) {
-        // --- BORRAR ---
-        // Nota: Asegúrate de que la URL termina con el ID correcto
+
         response = await fetch(`${endpoint}/${character.id}`, {
           method: "DELETE",
         });
       } else {
-        // --- AÑADIR ---
+
         response = await fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ charId: character.id }),
-        });
+          body: JSON.stringify({ rickMortyCharId: character.id }),        });
       }
 
-      // 2. Verificamos si salió bien (Códigos 200-299)
+
       if (response.ok) {
-        // Invertimos el estado actual (si era true pasa a false, y viceversa)
+
         setIsFavorite(!isFavorite);
       } else {
         console.error("Error en respuesta:", response.status, response.statusText);
@@ -67,7 +65,7 @@ const toggleFavorite = async () => {
       console.error("Error de red:", error);
       alert("No se pudo conectar con el servidor.");
     } finally {
-      // 3. ESTA ES LA CLAVE: Pase lo que pase, desbloqueamos el botón
+
       setLoadingFav(false);
     }
   };
