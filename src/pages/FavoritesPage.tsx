@@ -9,7 +9,8 @@ export const FavoritesPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/favorites")
+    // 1. Obtenemos los IDs de tu base de datos (Backend)
+    fetch("https://rick-morty-api-92w0.onrender.com/api/favorites")
       .then((res) => res.json())
       .then(async (ids: number[]) => {
         if (ids.length === 0) {
@@ -18,18 +19,16 @@ export const FavoritesPage = () => {
         }
 
         const idsString = ids.join(",");
-        const response = await fetch(`https://rickandmortyapi.com/api/character/${idsString}`);
+        const response = await fetch(`https://rick-morty-api-92w0.onrender.com/api/characters/${idsString}`);
         let data = await response.json();
-
         if (!Array.isArray(data)) {
             data = [data];
         }
-
         setCharacters(data);
         setLoading(false);
       })
       .catch((err) => {
-        console.error(err);
+        console.error("Error cargando favoritos:", err);
         setLoading(false);
       });
   }, []);

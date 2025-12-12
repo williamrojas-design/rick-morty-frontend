@@ -14,13 +14,13 @@ export const CharacterDetail = () => {
   const [loadingFav, setLoadingFav] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/api/characters/${id}`)
+    fetch(`https://rick-morty-api-92w0.onrender.com/api/characters/${id}`)
       .then((res) => res.json())
       .then((data) => setCharacter(data))
       .catch((err) => console.error("Error loading character:", err));
 
 
-    fetch("http://localhost:3001/api/favorites")
+    fetch("https://rick-morty-api-92w0.onrender.com/api/favorites")
       .then((res) => res.json())
       .then((ids: number[]) => {
         if (ids.includes(Number(id))) {
@@ -36,7 +36,7 @@ const toggleFavorite = async () => {
     setLoadingFav(true); 
 
     try {
-      const endpoint = "http://localhost:3001/api/favorites";
+      const endpoint = "https://rick-morty-api-92w0.onrender.com/api/favorites";
       let response;
 
       if (isFavorite) {
@@ -76,7 +76,7 @@ const toggleFavorite = async () => {
     <div className="detail-container">
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
         <Link to="/" className="back-btn">⬅ Volver al inicio</Link>
-        <Link to="/favorites" className="back-btn" style={{ background: '#ff9800' }}>★ Ver Favoritos</Link>
+        <Link to="/favorites" className="back-btn" >★ Ver Favoritos</Link>
       </div>
 
       <div className="detail-card">

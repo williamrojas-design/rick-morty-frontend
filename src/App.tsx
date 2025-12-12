@@ -15,7 +15,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/characters')
+    fetch('https://rick-morty-api-92w0.onrender.com/api/characters')
       .then((res) => res.json())
       .then((data: ApiResponse) => {
         if (data.results) {
